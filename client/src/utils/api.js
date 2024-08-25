@@ -20,3 +20,19 @@ export const getAllProperties = async () => {
     throw error;
   }
 };
+
+export const getProperty = async (id) => {
+  try {
+    const res = await api.get(`/residency/${id}`, {
+      timeout: 10 * 1000,
+    });
+
+    if (res.status === 400 || res.status === 500) {
+      throw res.data;
+    }
+    return res.data;
+  } catch (error) {
+    toast.error("Something went wrong");
+    throw error;
+  }
+};
