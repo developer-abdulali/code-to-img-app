@@ -17,10 +17,10 @@ const Footer = () => {
           <span className="primaryText">Information</span>
           <span className="secondaryText">145 New York, FL 5467, USA</span>
           <div className="flexCenter f-menu">
-            <span>Property</span>
-            <span>Services</span>
-            <span>Product</span>
-            <span>About Us</span>
+            <span style={{ cursor: "pointer" }}>Property</span>
+            <span style={{ cursor: "pointer" }}>Services</span>
+            <span style={{ cursor: "pointer" }}>Product</span>
+            <span style={{ cursor: "pointer" }}>About Us</span>
           </div>
         </div>
       </div>

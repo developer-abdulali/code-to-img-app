@@ -1,45 +1,32 @@
-import React, { useState } from "react";
-
+import React from "react";
+import { Avatar, Menu } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
 const ProfileMenu = ({ user, logout }) => {
-  const [open, setOpen] = useState(false);
-
-  const toggleMenu = () => setOpen(!open);
-
+  const navigate = useNavigate();
   return (
-    <div className="relative">
-      <button
-        onClick={toggleMenu}
-        className="flex items-center rounded-full transition duration-150 ease-in-out"
-      >
-        <img
-          src={user?.picture}
-          alt="user img"
-          className="w-10 h-10 rounded-full object-cover"
-        />
-      </button>
+    <Menu>
+      <Menu.Target>
+        <Avatar src={user?.picture} alt="user image" radius={"xl"} />
+      </Menu.Target>
+      <Menu.Dropdown>
+        <Menu.Item onClick={() => navigate("./favourites", { replace: true })}>
+          Favourites
+        </Menu.Item>
 
-      {open && (
-        <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg z-10">
-          <ul className="divide-y divide-gray-200">
-            <li className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
-              Favourite
-            </li>
-            <li className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left">
-              Bookings
-            </li>
-            <li
-              onClick={() => {
-                localStorage.clear();
-                logout();
-              }}
-              className="block px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-left"
-            >
-              Logout
-            </li>
-          </ul>
-        </div>
-      )}
-    </div>
+        <Menu.Item onClick={() => navigate("./bookings", { replace: true })}>
+          Bookings
+        </Menu.Item>
+
+        <Menu.Item
+          onClick={() => {
+            localStorage.clear();
+            logout();
+          }}
+        >
+          Logout
+        </Menu.Item>
+      </Menu.Dropdown>
+    </Menu>
   );
 };
 

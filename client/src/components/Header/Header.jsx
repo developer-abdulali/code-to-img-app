@@ -6,12 +6,22 @@ import useHeaderColor from "../../hooks/useHeaderColor";
 import OutsideClickHandler from "react-outside-click-handler";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import useAuthCheck from "../../hooks/useAuthCheck";
 import ProfileMenu from "../ProfileMenu/ProfileMenu";
+import AddPropertyModal from "../AddPropertyModal/AddPropertyModal";
 
 const Header = () => {
   const [menuOpened, setMenuOpened] = useState(false);
   const headerColor = useHeaderColor();
   const { loginWithRedirect, isAuthenticated, user, logout } = useAuth0();
+  const [modalOpened, setModalOpened] = useState(false);
+  const { validateLogin } = useAuthCheck();
+
+  const handleAddPropertyClick = () => {
+    if (validateLogin()) {
+      setModalOpened(true);
+    }
+  };
 
   return (
     <section className="h-wrapper" style={{ background: headerColor }}>
@@ -35,6 +45,10 @@ const Header = () => {
             <NavLink to="/properties">Properties</NavLink>
 
             <NavLink to="#">Contact Us</NavLink>
+
+            {/* add property button */}
+            <div onClick={handleAddPropertyClick}>Add Property</div>
+            <AddPropertyModal opened={modalOpened} setOpened={setModalOpened} />
 
             {!isAuthenticated ? (
               <button onClick={loginWithRedirect} className="button">
