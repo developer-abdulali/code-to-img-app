@@ -56,12 +56,13 @@ const Facilities = ({
         {
           ...propertyDetails,
           facilities: { bedrooms, parkings, bathrooms },
+          userEmail: user?.email,
         },
         token
       ),
     onError: ({ response }) =>
       toast.error(response.data.message, { position: "bottom-right" }),
-    onSettled: () => {
+    onSettled: async () => {
       toast.success("Added Successfully", { position: "bottom-right" });
       setPropertyDetails({
         title: "",
@@ -80,7 +81,10 @@ const Facilities = ({
       });
       setOpened(false);
       setActiveStep(0);
-      refetchProperties();
+      await refetchProperties();
+      console.log("Calling refetchProperties...");
+      const result = await refetchProperties();
+      console.log("Refetch result:", result);
     },
   });
 

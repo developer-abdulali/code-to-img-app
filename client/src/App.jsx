@@ -1,5 +1,4 @@
 import { Suspense, useState } from "react";
-import "./App.css";
 import Website from "./pages/Website";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
@@ -11,6 +10,7 @@ import Property from "./pages/Property/Property";
 import Bookings from "./pages/Bookings/Bookings";
 import Favourites from "./pages/Favourites/Favourites";
 import UserDetailContext from "./context/UserDetailsContext";
+import { ReactQueryDevtools } from "react-query/devtools";
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 
@@ -41,6 +41,7 @@ function App() {
           </Suspense>
         </BrowserRouter>
         <ToastContainer />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       </QueryClientProvider>
     </UserDetailContext.Provider>
   );

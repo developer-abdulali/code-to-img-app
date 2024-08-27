@@ -2,7 +2,10 @@ import "./Hero.css";
 import CountUp from "react-countup";
 import { motion } from "framer-motion";
 import SearchBar from "../SearchBar/SearchBar";
+import { useState } from "react";
+
 const Hero = () => {
+  const [filter, setFilter] = useState("");
   return (
     <section className="hero-wrapper">
       <div className="paddings innerWidth flexCenter hero-container">
@@ -27,7 +30,8 @@ const Hero = () => {
             <span>Find a variety of properties that suit you very easilty</span>
             <span>Forget all difficulties in finding a residence for you</span>
           </div>
-          <SearchBar />
+          {/* search bar */}
+          <SearchBar filter={filter} setFilter={setFilter} />
           <div className="flexCenter stats">
             <div className="flexColCenter stat">
               <span>

@@ -15,6 +15,7 @@ import { Button } from "@mantine/core";
 import { toast } from "react-toastify";
 import Heart from "../../components/Heart/Heart";
 import { AiTwotoneCar } from "react-icons/ai";
+import { FaTrashCan } from "react-icons/fa6";
 
 const Property = () => {
   const { user } = useAuth0();
@@ -73,7 +74,7 @@ const Property = () => {
         </div>
 
         {/* image */}
-        <img src={data?.image} about="property img" />
+        <img src={data?.image} alt="property img" />
 
         <div className="flexCenter property-details">
           {/* left */}
@@ -81,6 +82,11 @@ const Property = () => {
             {/* head */}
             <div className="flexStart head">
               <span className="primaryText">{data?.title}</span>
+              {isOwner && (
+                <button>
+                  <FaTrashCan />
+                </button>
+              )}
               <span className="orangeText" style={{ fontSize: "1.5rem" }}>
                 $ {data?.price}
               </span>
@@ -103,7 +109,7 @@ const Property = () => {
               {/* rooms */}
               <div className="flexStart facility">
                 <MdMeetingRoom size={20} color="#1F3E72" />
-                <span>{data?.facilities.bedrooms} Room/s</span>
+                <span>{data?.facilities.bedrooms} Rooms</span>
               </div>
             </div>
 
@@ -148,7 +154,7 @@ const Property = () => {
               </button>
             )}
 
-            {/* booking madal */}
+            {/* booking modal */}
             <BookingModal
               opened={modalOpened}
               setOpened={setModalOpened}
