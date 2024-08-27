@@ -1,5 +1,7 @@
 import React from "react";
 import "./Footer.css";
+import { Link } from "react-router-dom";
+
 const Footer = () => {
   return (
     <div className="f-wrapper">
@@ -17,10 +19,10 @@ const Footer = () => {
           <span className="primaryText">Information</span>
           <span className="secondaryText">145 New York, FL 5467, USA</span>
           <div className="flexCenter f-menu">
-            <span style={{ cursor: "pointer" }}>Property</span>
-            <span style={{ cursor: "pointer" }}>Services</span>
-            <span style={{ cursor: "pointer" }}>Product</span>
-            <span style={{ cursor: "pointer" }}>About Us</span>
+            <Link to="/properties">Properties</Link>
+            <Link to="#">Services</Link>
+            <Link to="#">Product</Link>
+            <Link to="#">About Us</Link>
           </div>
         </div>
       </div>

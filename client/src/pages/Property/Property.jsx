@@ -82,11 +82,7 @@ const Property = () => {
             {/* head */}
             <div className="flexStart head">
               <span className="primaryText">{data?.title}</span>
-              {isOwner && (
-                <button>
-                  <FaTrashCan />
-                </button>
-              )}
+
               <span className="orangeText" style={{ fontSize: "1.5rem" }}>
                 $ {data?.price}
               </span>

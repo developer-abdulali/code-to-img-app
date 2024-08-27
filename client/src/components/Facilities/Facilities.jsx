@@ -82,9 +82,6 @@ const Facilities = ({
       setOpened(false);
       setActiveStep(0);
       await refetchProperties();
-      console.log("Calling refetchProperties...");
-      const result = await refetchProperties();
-      console.log("Refetch result:", result);
     },
   });
 

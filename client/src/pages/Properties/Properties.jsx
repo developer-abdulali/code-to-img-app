@@ -15,10 +15,6 @@ const Properties = () => {
       console.error("Error fetching properties");
     }
 
-    if (!isLoading && data) {
-      console.log("Fetched properties data:", data);
-    }
-
     // Optional: Refetch data on component mount or other conditions
     // refetch();
   }, [data, isError, isLoading, refetch]);

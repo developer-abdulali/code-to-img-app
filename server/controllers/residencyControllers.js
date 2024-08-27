@@ -18,8 +18,6 @@ export const createResidency = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "User email is required" });
   }
 
-  console.log("userEmail:", userEmail);
-
   try {
     const residency = await prisma.residency.create({
       data: {
