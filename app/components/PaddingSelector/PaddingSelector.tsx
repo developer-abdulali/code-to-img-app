@@ -18,7 +18,7 @@ const PaddingSelector = ({
   return (
     <div>
       <p className="py-[5px] text-sm font-medium">Padding Selector</p>
-      <div className="flex gap-6">
+      <div className="flex gap-4">
         {paddings.map((padding, i) => {
           return (
             <button

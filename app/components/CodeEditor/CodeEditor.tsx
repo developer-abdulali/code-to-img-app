@@ -25,7 +25,6 @@ interface ICodeEditorProps {
   currentPadding?: string;
 }
 
-// CodeEditor.tsx modifications
 const CodeEditor = ({
   language,
   theme,
@@ -118,97 +117,5 @@ const CodeEditor = ({
     </Resizable>
   );
 };
-// const CodeEditor = ({
-//   language,
-//   theme,
-//   icon,
-//   background,
-//   currentPadding,
-// }: ICodeEditorProps) => {
-//   const [width, setWidth] = useState(1000);
-//   const [height, setHeight] = useState(500);
-//   const [title, setTitle] = useState("Untitled-1");
-//   const [code, setCode] = useState(initailCode);
 
-//   const handleCodeChange = (newCode: string) => {
-//     setCode(newCode);
-//   };
-
-//   // @ts-ignore
-//   const handleResize = (e, direction, ref, pos) => {
-//     const newHeight = ref.style.height;
-//     setHeight(parseInt(newHeight, 10));
-//   };
-
-//   const updateSize = () => {
-//     setWidth(window.innerWidth);
-//   };
-
-//   useEffect(() => {
-//     window.addEventListener("resize", updateSize);
-//     updateSize();
-//     return () => {
-//       window.removeEventListener("resize", updateSize);
-//     };
-//   }, []);
-
-//   return (
-//     <Resizable
-//       minHeight={466}
-//       minWidth={510}
-//       maxWidth={1000}
-//       defaultSize={{
-//         width: width,
-//         height: height || 500,
-//       }}
-//       onResize={handleResize}
-//       className="resize-container relative"
-//       style={{ background: background }}
-//     >
-//       <div className="code-block" style={{ padding: currentPadding }}>
-//         <div className="handle handle-top absolute left-1/2 translate-x-[-50%] top-[-4px] w-2 h-2 rounded-full bg-slate-300 hover:bg-slate-50"></div>
-//         <div className="handle handle-bottom absolute left-1/2 bottom-[-4px] w-2 h-2 rounded-full bg-slate-300 hover:bg-slate-50"></div>
-//         <div className="handle handle-left absolute left-[-4px] top-1/2 w-2 h-2 rounded-full bg-slate-300 hover:bg-slate-50"></div>
-//         <div className="handle handle-right absolute right-[-4px] top-1/2 w-2 h-2 rounded-full bg-slate-300 hover:bg-slate-50"></div>
-
-//         <div className="code-title h-[57px] px-4 flex items-center justify-between bg-black border-opacity-80">
-//           <div className="dots flex items-center gap-1">
-//             <div className="w-3 h-3 rounded-full bg-[#ff5656]"></div>
-//             <div className="w-3 h-3 rounded-full bg-[#ffbc6a]"></div>
-//             <div className="w-3 h-3 rounded-full bg-[#67f772]"></div>
-//           </div>
-
-//           {/* inputs */}
-//           <div className="input-control w-full">
-//             <input
-//               type="text"
-//               value={title}
-//               onChange={(e) => setTitle(e.target.value)}
-//               className="w-full py-2 text-[hsla(0,0%,100%,.6)] outline-none font-medium text-center bg-transparent"
-//             />
-//           </div>
-
-//           <div className="icon flex items-center justify-center p-1 bg-black bg-opacity-30 rounded-md">
-//             <img src={icon} alt="icon" className="w-8 object-cover" />
-//           </div>
-//         </div>
-//         <AceEditor
-//           value={code}
-//           name="UNIQUE_ID_OF_DIV"
-//           fontSize={16}
-//           theme={theme}
-//           mode={language.toLocaleLowerCase()}
-//           showGutter={false}
-//           height={`calc(${height}px - ${currentPadding} - ${currentPadding} - 52px)`}
-//           wrapEnabled={true}
-//           showPrintMargin={false}
-//           highlightActiveLine={false}
-//           editorProps={{ $blockScrolling: true }}
-//           onChange={handleCodeChange}
-//           className="ace-editor-container"
-//         />
-//       </div>
-//     </Resizable>
-//   );
-// };
 export default CodeEditor;
