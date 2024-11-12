@@ -13,7 +13,7 @@ export const languages = [
   },
   {
     name: "CSS",
-    icon: "icons/css.jpg",
+    icon: "icons/css.png",
   },
   {
     name: "Python",
@@ -39,3 +39,15 @@ export const backgrounds = [
   "linear-gradient(140deg,rgb(165,142,251),rgb(233,191,248))",
   "linear-gradient(270deg,#514a9d,#24c6dc)",
 ];
+
+export const initailCode = `function guessMyNumber() {
+  const userGuess = prompt('Guess your number between 1 to 10');
+  const secretNumber = Math.ceil(Math.random() * 10)
+
+  if (userGuess === secretNumber) {
+     alert('Congratulations! You guessed the number correctly!');
+  } else {
+    alert('Sorry, but the number was'+ secretNumber + '. Better luck next time!');
+  }
+}
+console.log(guessMyNumber())`;

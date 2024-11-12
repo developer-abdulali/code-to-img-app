@@ -1,16 +1,59 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import CodeEditor from "./components/CodeEditor/CodeEditor";
 import { backgrounds, languages, themes } from "./utils/utilities";
 import LanguageSelector from "./components/LanguageSelector/LanguageSelector";
 import ThemeSelector from "./components/ThemeSelector/ThemeSelector";
 import BackgroundSelector from "./components/BackgroundSelector/BackgroundSelector";
+import PaddingSelector from "./components/PaddingSelector/PaddingSelector";
+import { Download } from "lucide-react";
+import Footer from "./components/Footer/Footer";
+import html2canvas from "html2canvas";
 
 const Home = () => {
+  const editorRef = useRef(null);
   const [language, setLanguage] = useState(languages[0].name);
   const [activeIcon, setActiveIcon] = useState(languages[0].icon);
   const [theme, setTheme] = useState(themes[0]);
   const [background, setBackground] = useState(backgrounds[0]);
+  const [paddings, setPaddings] = useState(["1rem", "2rem", "3rem", "4rem"]);
+  const [currentPadding, setCurrentPadding] = useState(paddings[1]);
+
+  const handleDownloadImage = async () => {
+    const editorElement = editorRef.current;
+
+    if (editorElement) {
+      //hide elements
+      const handleElements = document.querySelectorAll(".handle") as any;
+      const cursorElement = document.querySelector(".ace_cursor") as any;
+      const codeTitle = document.querySelector(".code-title") as any;
+
+      handleElements.forEach(
+        (element: any) => (element.style.display = "none")
+      );
+      cursorElement.style.display = "none";
+      codeTitle.style.boxShadow = "none";
+
+      const canvas = await html2canvas(editorElement);
+      const image = canvas
+        .toDataURL("image/png")
+        .replace("image/png", "image/octet-stream");
+
+      // Save the image to the user's device
+      const link = document.createElement("a");
+      link.download = "code-to-image.png";
+      link.href = image;
+      link.click();
+
+      // show hidden element
+      handleElements.forEach(
+        (element: any) => (element.style.display = "block")
+      );
+      cursorElement.style.display = "block";
+      codeTitle.style.boxShadow = "0 3px 10px rgba(0, 0, 0, 0.2) !important";
+    }
+  };
+
   return (
     <main className="h-[100vh] flex flex-col items-center justify-between">
       <header className="mt-6 flex gap-6 w-[940px] p-5 fixed top-0 left-1/2 translate-x-[-50%] z-10 bg-[#191919] rounded border-[#3C3C3C] shadow-md">
@@ -19,15 +62,40 @@ const Home = () => {
           setLanguage={setLanguage}
           setActiveIcon={setActiveIcon}
         />
+
         <ThemeSelector theme={theme} setTheme={setTheme} />
+
         <BackgroundSelector
           background={background}
           setBackground={setBackground}
         />
+        <PaddingSelector
+          paddings={paddings}
+          currentPadding={currentPadding}
+          setCurrentPadding={setCurrentPadding}
+        />
+
+        {/* export button */}
+        <div className="export-btn self-center ml-auto">
+          <button
+            onClick={handleDownloadImage}
+            className="flex items-center gap-3 py-2 px-3 bg-blue-400 rounded-md text-sm text-blue-400 font-medium bg-opacity-10 hover:bg-opacity-80 hover:text-slate-50 ease-in-out transition-all duration-300"
+          >
+            <Download />
+            Export PNG
+          </button>
+        </div>
       </header>
-      <div className="code-editor-ref mt-[14rem]">
-        <CodeEditor language={language} icon={activeIcon} theme={theme} />
+      <div ref={editorRef} className="code-editor-ref mt-[10rem]">
+        <CodeEditor
+          language={language}
+          icon={activeIcon}
+          theme={theme}
+          background={background}
+          currentPadding={currentPadding}
+        />
       </div>
+      <Footer />
     </main>
   );
 };

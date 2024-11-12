@@ -15,9 +15,9 @@ import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/theme-terminal";
 import "ace-builds/src-noconflict/theme-twilight";
 import { useEffect, useState } from "react";
+import { initailCode } from "@/app/utils/utilities";
 
 interface ICodeEditorProps {
-  onCodeChange: (code: string) => void;
   language: string;
   theme: string;
   icon: string;
@@ -26,7 +26,6 @@ interface ICodeEditorProps {
 }
 
 const CodeEditor = ({
-  onCodeChange,
   language,
   theme,
   icon,
@@ -35,11 +34,17 @@ const CodeEditor = ({
 }: ICodeEditorProps) => {
   const [width, setWidth] = useState(1000);
   const [height, setHeight] = useState(500);
+  const [title, setTitle] = useState("Untitled-1");
+  const [code, setCode] = useState(initailCode);
+
+  const handleCodeChange = (newCode: string) => {
+    setCode(newCode);
+  };
 
   // @ts-ignore
   const handleResize = (e, direction, ref, pos) => {
     const newHeight = ref.style.height;
-    setHeight(parseInt(newHeight));
+    setHeight(parseInt(newHeight, 10));
   };
 
   const updateSize = () => {
@@ -65,9 +70,15 @@ const CodeEditor = ({
       }}
       onResize={handleResize}
       className="resize-container relative"
+      style={{ background: background }}
     >
-      <div className="code-block">
-        <div className="code-title h-[52px] px-4 flex items-center justify-between bg-black border-opacity-80">
+      <div className="code-block" style={{ padding: currentPadding }}>
+        <div className="handle handle-top absolute left-1/2 translate-x-[-50%] top-[-4px] w-2 h-2 rounded-full bg-slate-300 hover:bg-slate-50"></div>
+        <div className="handle handle-bottom absolute left-1/2 bottom-[-4px] w-2 h-2 rounded-full bg-slate-300 hover:bg-slate-50"></div>
+        <div className="handle handle-left absolute left-[-4px] top-1/2 w-2 h-2 rounded-full bg-slate-300 hover:bg-slate-50"></div>
+        <div className="handle handle-right absolute right-[-4px] top-1/2 w-2 h-2 rounded-full bg-slate-300 hover:bg-slate-50"></div>
+
+        <div className="code-title h-[57px] px-4 flex items-center justify-between bg-black border-opacity-80">
           <div className="dots flex items-center gap-1">
             <div className="w-3 h-3 rounded-full bg-[#ff5656]"></div>
             <div className="w-3 h-3 rounded-full bg-[#ffbc6a]"></div>
@@ -78,25 +89,29 @@ const CodeEditor = ({
           <div className="input-control w-full">
             <input
               type="text"
-              className="w-full text-[hsla(0,0%,100%,.6)] outline-none font-medium text-center bg-transparent"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="w-full py-2 text-[hsla(0,0%,100%,.6)] outline-none font-medium text-center bg-transparent"
             />
           </div>
 
           <div className="icon flex items-center justify-center p-1 bg-black bg-opacity-30 rounded-md">
-            <img src={icon} alt="icon" />
+            <img src={icon} alt="icon" className="w-8 object-cover" />
           </div>
         </div>
         <AceEditor
-          value="function() { return 'Hello World';}"
+          value={code}
           name="UNIQUE_ID_OF_DIV"
           fontSize={16}
           theme={theme}
           mode={language.toLocaleLowerCase()}
           showGutter={false}
+          height={`calc(${height}px - ${currentPadding} - ${currentPadding} - 52px)`}
           wrapEnabled={true}
           showPrintMargin={false}
           highlightActiveLine={false}
           editorProps={{ $blockScrolling: true }}
+          onChange={handleCodeChange}
           className="ace-editor-container"
         />
       </div>
